@@ -118,6 +118,17 @@ header{
     font-size: 12px;
 
 }
+
+.bot {
+    width: 100%;
+}
+
+.self {
+    text-align: right;
+    align-content: right;
+    width: 100%;
+}
+
 .self .chat-message {
     background: #1adda4;
     order: -1;
@@ -152,13 +163,14 @@ header{
 }
 .chat-form button {
     background: rgb(22, 172, 89);
-    padding: 3px 8px;
+    width: 8rem;
+    padding: 1rem;
     border-radius: 3px;
     font-size: 15px;
     color: #eee;
-    border: none;
+    border: 0;
     margin: 0 10px;
-    box-shadow: 0 3px 0 #ccc;
+    /* box-shadow: 0 3px 0 #ccc; */
     cursor: pointer;
 }
 

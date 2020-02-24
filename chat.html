@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Charlotte's Webpage</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+		<div class="container-fluid">
+			<div class="logo">
+				<img src="img/logo.jpg" alt="Unical Logo">
+			</div>
+			<ul class="nav-area">
+				<li><a href="/" style="color: #50aaf3">Home</a></li>
+				<li><a href="#"  style="color: #50aaf3">About</a></li>
+				<li><a href="#"  style="color: #50aaf3">Services</a></li>
+				<li><a href="/chat"  style="color: #50aaf3">Chat</a></li>
+			</ul>
+		</div>
+		<div class="container">
+			<h4 class="">Unical Chatbot</h4>
+			<div class="chatlogs" id = "chatlogs">
+				
+			</div>
+			<div class="chat-form" id= "chats">
+				<input type="text" id = "input" style="width: 100%; padding: 1rem"/>
+				<button id="submit" style="" onclick="submit()">send</button>
+			</div>
+			<div class="modal-footer">
+				<p>All information here was supplied by humans. Don't blame me for any errors</p>
+			</div>
+	</div>
+    <script>
+             async function submit(){
+               const word = document.getElementById('input').value;
+                if(word.length === 0){
+                   alert("please send a valid message")
+                   return;  
+               }
+               
+               document.getElementById('input').value = '';
+              
+               const url = `https://8000-d9b84fbd-c708-4ce8-8a2d-a4dcda189c65.ws-eu01.gitpod.io/predict?word=${word}`
+
+               let response = await fetch(url)
+               response = await response.text();
+
+               $('#chatlogs').append(`<div class='chat self'>
+
+               <div class='user-photo'> <img src='img/user.png'></div>
+
+                <p class='chat-message'> ${word} </p>
+
+                </div>`);
+               
+                if(response.includes("Nothing to see here.")){
+                    alert("Server Error, Please send your messages again ")
+                    return;
+                }
+                $('#chatlogs').append(`<div class='chat bot'>
+               <div class='user-photo'> <img src='img/bot.png'> </div>
+					
+               <p class='chat-message'> ${response}</p> 
+				</div>`);
+                updateScroll();
+            }
+
+
+            input.addEventListener("keyup", function(event) {
+                // Number 13 is the "Enter" key on the keyboard
+                if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("submit").click();
+                 }
+            });
+            function updateScroll(){
+            var element = document.getElementById("chatlogs");
+            element.scrollTop = element.scrollHeight;
+            }
+    </script>
+</body>
+
+</html>
